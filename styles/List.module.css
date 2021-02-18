@@ -1,0 +1,22 @@
+.listContainer {
+  border: 2px solid #eaeaea;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.listContainer .listItem:not(:last-child) {
+  border-bottom: 2px solid #eaeaea;
+}
+
+.listItem {
+  padding: 20px 15px;
+  list-style-type: none;
+}
+
+.listItem a {
+  box-shadow: 0 2px 0 0 transparent;
+}
+
+.listItem a:hover {
+  box-shadow: 0 2px 0 0 royalblue;
+}

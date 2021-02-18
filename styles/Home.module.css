@@ -1,67 +1,3 @@
-.container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.main {
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer {
-  width: 100%;
-  height: 100px;
-  border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer img {
-  margin-left: 0.5rem;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
 .code {
   background: #fafafa;
   border-radius: 5px;
@@ -71,52 +7,105 @@
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
-.grid {
+.paginationControlsContainer {
+  background: #eaeaea;
+}
+.paginationControls {
   display: flex;
-  align-items: center;
+  height: 35px;
+  align-items: center; 
+  flex-direction: row;
+}
+
+.paginationControls p {
+  margin: 0 10px;
+  font-size: 14px;
+}
+
+.paginationControls button {
+  cursor: pointer;
+  background: #cacaca;
+  transition: all .2s ease;
+  outline: none;
+  border: none;
+  display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin-top: 3rem;
+  align-items: center;
+  height: 100%;
+  width: 35px;
+  font-size: 18px;
+  line-height: 22px;
 }
 
-.card {
-  margin: 1rem;
-  flex-basis: 45%;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+.previousButton {
+  border-top-left-radius: 5px;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.paginationControls button:hover {
+  background: #2b2b2b;
+  color: white;
 }
 
-.card h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.previousButton:before {
+  clip-path: polygon(9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px);
+  content: "";
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-color: currentcolor;
 }
 
-.card p {
+.nextButton:after {
+  clip-path: polygon(6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px);
+  content: "";
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-color: currentcolor;
+}
+
+.issueNumber {
+  color: #7a7a7a;
+}
+
+.issueRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.issueRow .issueTitle {
+  margin-bottom: 10px;
+}
+
+.issueDetails {
+  color: #5a5a5a;
+  font-size: 14px;
+}
+
+.issueDetails > p {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
 }
 
-.logo {
-  height: 1em;
+.issueRowRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.issueRowRight > div {
+  margin-right: 10px;
+}
+
+.commentCount {
+  display: flex;
+  align-items: flex-start;
+}
+
+.commentCount span {
+  margin-left: 2px;
+  font-size: 12px;
+  font-weight: 600;
 }

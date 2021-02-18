@@ -1,0 +1,123 @@
+.navigation {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.navigation a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: none;
+  border: 2px solid #eaeaea;
+  padding: 10px 15px 10px 11px;
+  border-radius: 5px;
+  color: black;
+
+  transition: all .2s ease;
+}
+
+.navigation a:before {
+  clip-path: polygon(9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px);
+  content: "";
+  background-color: currentcolor;
+  display: inline-block; 
+  width: 16px;
+  height: 16px;
+}
+
+.navigation a:hover {
+  border-color: #2b2b2b;
+}
+
+.body {
+  padding: 15px;
+  background: #fafafa;
+  border: 2px solid #dadada;
+  border-radius: 5px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.comment img {
+  max-width: 40px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+
+.commentContent {
+  width: 650px;  
+}
+
+.commentContent::after {
+    content: "";
+    height: 35px;
+    border-left: 3px solid #eaeaea;
+    display: block;
+    margin-left: 50px;
+}
+
+.commentUser p {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px 15px;
+  margin: 0;
+  background: #eaeaea;
+  font-weight: 300;
+}
+
+.lastComment p {
+  background: none;
+  border-radius: 5px;
+  border: 2px solid #eaeaea;
+}
+
+.commentUser a {
+  box-shadow: none;
+  color: #2b2b2b;
+}
+
+.commentUser a:hover {
+  color: royalblue;
+}
+
+.commentUser .commentLogin {
+  font-weight: 600;
+}
+
+.commentBody {
+  padding: 15px 10px;
+  border: 2px solid #eaeaea;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.issueNumber {
+  color: #676767;
+  font-weight: 300;
+}
+
+.details {
+  border-bottom: 2px solid #eaeaea;
+  padding: 10px 0 25px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.details > span:first-child {
+  margin-right: 10px;
+}
+
+.endDetails {
+  border-top: 3px solid #eaeaea;
+  padding: 2rem 0;
+}

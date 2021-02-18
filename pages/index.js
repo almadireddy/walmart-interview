@@ -1,65 +1,95 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Footer from '../components/Footer.js'
+import Header from '../components/Header.js'
+import { List, ListItem } from '../components/List.js'
+import InfoPill from '../components/InfoPill.js'
+import CommentIcon from '../components/CommentIcon.js'
 
-export default function Home() {
+export default function Home(props) {
+  const { issues } = props;
+  const [page, setPage] = useState(1);
+
+  const maxPages = Math.ceil(issues.length / 10);
+
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <main>
+        <Header
+          title="walmartlabs/thorax issue tracker"
+          description={[
+            "Browse ",<a href="https://github.com/walmartlabs/thorax">walmartlabs/thorax</a>
+          ]}>
+        </Header>
+        <section>
+          <h2>Issues</h2>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+          <List>
+            <div className={styles.paginationControlsContainer}>
+              <div className={styles.paginationControls}>
+                <button className={styles.previousButton} onClick={() => {
+                  if (page > 1) setPage(page - 1);
+                }}></button>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+                <button className={styles.nextButton} onClick={() => {
+                  if (page < maxPages) setPage(page + 1);
+                }}></button>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+                <p>Page {page} of {maxPages}</p>
+              </div>
+            </div>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+            {issues && issues.slice((page-1) * 10, (page-1)*10 + 10).map((i) => (
+              <ListItem key={i.number}>
+                <div className={styles.issueRow}>
+                  <div>
+                    <div className={styles.issueTitle}>
+                      <span className={styles.issueNumber}>#{i.number}:</span> <a href={`/issue/${i.number}`}>{i.title}</a>
+                    </div>
+                    <div className={styles.issueDetails}>
+                      <p>Created on {new Date(i.created_at).toLocaleString()} by <a href={i.user.html_url} target="_blank">{i.user.login}</a></p> 
+                    </div>
+                  </div>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+                  <div className={styles.issueRowRight}>
+                    {i.comments > 0 && (
+                      <div className={styles.commentCount}>
+                        <CommentIcon />
+                        <span>{i.comments}</span>
+                      </div>
+                    )}
+
+                    <div>
+                      {i.state === "closed" ? <InfoPill inline>Closed</InfoPill> : <InfoPill inline>Open</InfoPill>} 
+                    </div>
+                  </div>
+
+                </div>
+              </ListItem>
+            ))}
+          </List>
+        </section>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <Footer>
+      </Footer>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch("https://api.github.com/repos/walmartlabs/thorax/issues?per_page=1000&state=all");
+  const data = await res.json();
+
+  return {
+    props: {
+      issues: data
+    }
+  }
 }
