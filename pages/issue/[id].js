@@ -8,7 +8,22 @@ const Issue = (props) => {
     const router = useRouter();
     const { id } = router.query;
 
-    const { issue, comments } = props;
+    const { errorCode, issue, comments } = props;
+
+    if (errorCode) {
+        return (
+            <div >
+                <main>
+                    <div className={styles.navigation}>
+                        <a href="/">
+                            All issues 
+                        </a>
+                    </div>
+                    <Header title={errorCode} />
+                </main>
+            </div>
+        )
+    }
 
     return (
         <div className="container">
@@ -90,11 +105,24 @@ export async function getServerSideProps(context) {
     const res = await fetch(`https://api.github.com/repos/walmartlabs/thorax/issues/${params.id}`)
     const issue = await res.json();
 
+    if (res.status !== 200) {
+        context.statusCode = res.status;
+        return {
+            props: {
+                errorCode: res.status,
+                comments: null,
+                issue: null
+            }
+        }
+    }
+
     const res2 = await fetch(`https://api.github.com/repos/walmartlabs/thorax/issues/${params.id}/comments`);
     const comments = await res2.json();
 
+
     return {
         props: {
+            errorCode: null,
             comments,
             issue 
         }

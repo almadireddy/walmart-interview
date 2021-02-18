@@ -8,7 +8,25 @@ import InfoPill from '../components/InfoPill.js'
 import CommentIcon from '../components/CommentIcon.js'
 
 export default function Home(props) {
-  const { issues } = props;
+  const { issues, errorCode } = props;
+
+  if (errorCode) {
+    return (
+      <div className="container">
+        <Head>
+          <title>Error</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <main>
+          <Header
+            title="walmartlabs/thorax issue tracker"
+            description={`Error: ${errorCode}`}>
+          </Header>
+        </main>
+      </div> 
+    )
+  }
   const [page, setPage] = useState(1);
 
   const maxPages = Math.ceil(issues.length / 10);
@@ -86,6 +104,15 @@ export default function Home(props) {
 export async function getServerSideProps(context) {
   const res = await fetch("https://api.github.com/repos/walmartlabs/thorax/issues?per_page=1000&state=all");
   const data = await res.json();
+
+  if (res.status !== 200) {
+    return {
+      props: {
+        errorCode: res.status,
+        issues: null
+      }
+    }
+  }
 
   return {
     props: {
